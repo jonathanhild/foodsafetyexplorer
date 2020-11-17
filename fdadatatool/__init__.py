@@ -4,11 +4,10 @@
 # https://opensource.org/licenses/MIT
 
 from .data_factory import factory
-
-# from .citations import CitationsDataBuilder
-# from .compliance_actions import ComplianceActionsDataBuilder
-# from .firm_profiles import FirmProfileDataBuilder
-# from .import_refusals import ImportRefusalsDataBuilder
-# from .imports_summary import ImportsSummaryDataBuilder
-# from .inspections import InspectionsDataBuilder
-from .recalls import RecallDataBuilder
+# from .citations import ICitationsBuilder
+# from .compliance_actions import IComplianceActionsBuilder
+# from .firm_profiles import IFirmProfileBuilder
+# from .import_refusals import IImportRefusalsBuilder
+# from .imports_summary import IImportsSummaryBuilder
+# from .inspections import IInspectionsBuilder
+from .recalls import IRecallBuilder

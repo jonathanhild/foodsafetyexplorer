@@ -10,6 +10,7 @@ from datetime import datetime as dt
 import requests
 
 from .data_factory import factory
+from .mappings import Recall
 
 FIELDNAMES = ['country',
               'city',
@@ -38,9 +39,9 @@ FIELDNAMES = ['country',
               'status']
 
 
-class RecallData:
+class RecallBuilder:
     def __init__(self):
-        self._base = "https://api.fda.gov/food/enforcement.json"
+        self._base = 'https://api.fda.gov/food/enforcement.json'
         self._skip = 0
         self._limit = 1000
         self._total = 0
@@ -58,36 +59,44 @@ class RecallData:
         self._last_updated = dt.strptime(
             json['last_updated'], "%Y-%m-%d")
 
-    def get_data(self):
-        while self._skip < self._total:
+    def get_data(self, record_limit=None):
+        if record_limit is None:
+            record_limit = self._total
+        while self._skip < record_limit:
             params = {'skip': self._skip, 'limit': self._limit}
             re = requests.get(self._base, params)
-            response = re.json()
-            idx = 0
-            for r in response['results']:
-                self.data.append(r)
-                idx += 1
+            responses = re.json()
+            for response in responses['results']:
+                recall = Recall(response)
+                self.data.append(recall)
+                print(f'Object {self._skip}')
                 self._skip += 1
 
-    def to_csv(self):
-        path = os.path.join('data', 'recalls.csv')
-        with open(path, 'w') as f:
-            w = csv.DictWriter(f, fieldnames=FIELDNAMES)
-            w.writeheader()
+    def to_csv(self, filename=None):
+        if filename is None:
+            filename = 'recalls.csv'
+        filepath = os.path.join('.', 'data', filename)
+        with open(filepath, 'w') as f:
+            w = csv.writer(f,
+                           delimiter=',',
+                           quotechar='"',
+                           quoting=csv.QUOTE_MINIMAL)
+            w.writerow(self.data[0].__table__.columns)
             for row in self.data:
-                w.writerow(row)
+                w.writerow(list(row))
 
-    def to_db(self):
+    def to_db(self, db_session):
+        pass
 
 
-class RecallDataBuilder:
+class IRecallBuilder:
     def __init__(self):
         self._instance = None
 
     def __call__(self):
         if not self._instance:
-            self._instance = RecallData()
+            self._instance = RecallBuilder()
         return self._instance
 
 
-factory.register_builder("RECALLS", RecallDataBuilder())
+factory.register_builder('RECALLS', IRecallBuilder())
