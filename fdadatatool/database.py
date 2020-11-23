@@ -14,14 +14,11 @@ db_path = os.path.join('.', 'data', 'fdadata.sqlite')
 engine = db.create_engine(f'sqlite:///{db_path}')
 
 
-def create_db():
+def db_session():
     Base.metadata.create_all(engine)
-
-
-def create_session():
     Session = sessionmaker(bind=engine)
     return Session()
 
 
 if __name__ == '__main__':
-    create_db()
+    db_session()
