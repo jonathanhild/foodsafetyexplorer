@@ -4,7 +4,7 @@
 # https://opensource.org/licenses/MIT
 
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Date, Integer, String
+import sqlalchemy as db
 
 Base = declarative_base()
 
@@ -12,91 +12,91 @@ Base = declarative_base()
 class Citation(Base):
     __tablename__ = 'citation'
 
-    id = Column(Integer, primary_key=True)
-    inspection_id = Column(Integer)
-    fei_number = Column(Integer)
-    legal_name = Column(String)
-    inspection_end_date = Column(Date)
-    program_area = Column(String)
-    act_cfr_number = Column(String)
-    short_description = Column(String)
-    long_description = Column(String)
-    firm_profile = Column(String)
+    id = db.Column(db.Integer, primary_key=True)
+    inspection_id = db.Column(db.Integer)
+    fei_number = db.Column(db.Integer)
+    legal_name = db.Column(db.String)
+    inspection_end_date = db.Column(db.Date)
+    program_area = db.Column(db.String)
+    act_cfr_number = db.Column(db.String)
+    short_description = db.Column(db.String)
+    long_description = db.Column(db.String)
+    firm_profile = db.Column(db.String)
 
 
 class ComplianceAction(Base):
     __tablename__ = 'compliance_action'
 
-    id = Column(Integer, primary_key=True)
-    fei_number = Column(Integer)
-    firm_name = Column(String)
-    firm_state = Column(String)
-    country_area = Column(String)
-    product_type = Column(String)
-    action_taken_date = Column(Date)
-    action_type = Column(String)
-    case_id = Column(Integer)
-    firm_profile = Column(String)
+    id = db.Column(db.Integer, primary_key=True)
+    fei_number = db.Column(db.Integer)
+    firm_name = db.Column(db.String)
+    firm_state = db.Column(db.String)
+    country_area = db.Column(db.String)
+    product_type = db.Column(db.String)
+    action_taken_date = db.Column(db.Date)
+    action_type = db.Column(db.String)
+    case_id = db.Column(db.Integer)
+    firm_profile = db.Column(db.String)
 
 
 class FirmProfile(Base):
     __tablename__ = 'firm_profile'
 
-    id = Column(Integer, primary_key=True)
-    fei_number = Column(Integer)
-    firm_name = Column(String)
-    firm_address1 = Column(String)
-    firm_address2 = Column(String)
-    firm_address3 = Column(String)
+    id = db.Column(db.Integer, primary_key=True)
+    fei_number = db.Column(db.Integer)
+    firm_name = db.Column(db.String)
+    firm_address1 = db.Column(db.String)
+    firm_address2 = db.Column(db.String)
+    firm_address3 = db.Column(db.String)
 
 
 class ImportRefusal(Base):
     __tablename__ = 'import_refusal'
 
-    id = Column(Integer, primary_key=True)
-    fei_number = Column(Integer)
-    firm_legal_name = Column(String)
-    firm_address = Column(String)
-    product_code_and_description = Column(String)
-    refused_date = Column(Date)
-    import_division = Column(String)
-    shipment_id = Column(String)
-    fda_sample_analysis = Column(String)
-    private_lab_analysis = Column(String)
-    refusal_charges = Column(String)
-    firm_profile = Column(String)
+    id = db.Column(db.Integer, primary_key=True)
+    fei_number = db.Column(db.Integer)
+    firm_legal_name = db.Column(db.String)
+    firm_address = db.Column(db.String)
+    product_code_and_description = db.Column(db.String)
+    refused_date = db.Column(db.Date)
+    import_division = db.Column(db.String)
+    shipment_id = db.Column(db.String)
+    fda_sample_analysis = db.Column(db.String)
+    private_lab_analysis = db.Column(db.String)
+    refusal_charges = db.Column(db.String)
+    firm_profile = db.Column(db.String)
 
 
 class ImportSummary(Base):
     __tablename__ = 'import_summary'
 
-    id = Column(Integer, primary_key=True)
-    fiscal_year = Column(Integer)
-    product_category = Column(String)
-    total_lines = Column(Integer)
-    refused_lines = Column(Integer)
-    examined_lines = Column(Integer)
-    sampled_lines = Column(Integer)
+    id = db.Column(db.Integer, primary_key=True)
+    fiscal_year = db.Column(db.Integer)
+    product_category = db.Column(db.String)
+    total_lines = db.Column(db.Integer)
+    refused_lines = db.Column(db.Integer)
+    examined_lines = db.Column(db.Integer)
+    sampled_lines = db.Column(db.Integer)
 
 
 class Inspection(Base):
     __tablename__ = 'inspection'
 
-    id = Column(Integer, primary_key=True)
-    fei_number = Column(Integer)
-    legal_name = Column(String)
-    city = Column(String)
-    state = Column(String)
-    zip_code = Column(String)
-    country_area = Column(String)
-    fiscal_year = Column(Integer)
-    inspection_id = Column(Integer)
-    posted_citations = Column(String)
-    inspection_end_date = Column(Date)
-    classification = Column(String)
-    project_area = Column(String)
-    product_type = Column(String)
-    firm_profile = Column(String)
+    id = db.Column(db.Integer, primary_key=True)
+    fei_number = db.Column(db.Integer)
+    legal_name = db.Column(db.String)
+    city = db.Column(db.String)
+    state = db.Column(db.String)
+    zip_code = db.Column(db.String)
+    country_area = db.Column(db.String)
+    fiscal_year = db.Column(db.Integer)
+    inspection_id = db.Column(db.Integer)
+    posted_citations = db.Column(db.String)
+    inspection_end_date = db.Column(db.Date)
+    classification = db.Column(db.String)
+    project_area = db.Column(db.String)
+    product_type = db.Column(db.String)
+    firm_profile = db.Column(db.String)
 
 
 class Recall(Base):
@@ -107,32 +107,32 @@ class Recall(Base):
         for key, val in data.items():
             setattr(self, key, val)
 
-    id = Column(Integer, primary_key=True)
-    recall_number = Column(String)
-    report_date = Column(Date)
-    recall_initiation_date = Column(Date)
-    center_classification_date = Column(Date)
-    termination_date = Column(Date)
-    classification = Column(String)
-    voluntary_mandated = Column(String)
-    initial_firm_notification = Column(String)
-    status = Column(String)
-    openfda = Column(String)
-    event_id = Column(Integer)
-    recalling_firm = Column(String)
-    address_1 = Column(String)
-    address_2 = Column(String)
-    city = Column(String)
-    state = Column(String)
-    postal_code = Column(String)
-    country = Column(String)
-    product_type = Column(String)
-    product_description = Column(String)
-    product_quantity = Column(String)
-    code_info = Column(String)
-    more_code_info = Column(String)
-    reason_for_recall = Column(String)
-    distribution_pattern = Column(String)
+    id = db.Column(db.Integer, primary_key=True)
+    recall_number = db.Column(db.String)
+    report_date = db.Column(db.Date)
+    recall_initiation_date = db.Column(db.Date)
+    center_classification_date = db.Column(db.Date)
+    termination_date = db.Column(db.Date)
+    classification = db.Column(db.String)
+    voluntary_mandated = db.Column(db.String)
+    initial_firm_notification = db.Column(db.String)
+    status = db.Column(db.String)
+    openfda = db.Column(db.String)
+    event_id = db.Column(db.Integer)
+    recalling_firm = db.Column(db.String)
+    address_1 = db.Column(db.String)
+    address_2 = db.Column(db.String)
+    city = db.Column(db.String)
+    state = db.Column(db.String)
+    postal_code = db.Column(db.String)
+    country = db.Column(db.String)
+    product_type = db.Column(db.String)
+    product_description = db.Column(db.String)
+    product_quantity = db.Column(db.String)
+    code_info = db.Column(db.String)
+    more_code_info = db.Column(db.String)
+    reason_for_recall = db.Column(db.String)
+    distribution_pattern = db.Column(db.String)
 
     def __iter__(self):
         return iter([self.id,
