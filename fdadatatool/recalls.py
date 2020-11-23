@@ -60,7 +60,7 @@ class RecallBuilder:
                            quoting=csv.QUOTE_MINIMAL)
             w.writerow(self.data[0].__table__.columns)
             for row in tqdm(iterable=self.data,
-                            desc='Writing to CSV file',
+                            desc='Writing recalls to CSV file',
                             leave=True):
                 w.writerow(list(row))
 
@@ -70,14 +70,16 @@ class RecallBuilder:
         print('Inserting recall records into database.')
         session.commit()
 
+    # TODO: create method to update metadata table
+
 
 class IRecallBuilder:
     def __init__(self):
         self._instance = None
 
-    def __call__(self):
+    def __call__(self, **kwargs):
         if not self._instance:
-            self._instance = RecallBuilder()
+            self._instance = RecallBuilder(**kwargs)
         return self._instance
 
 
