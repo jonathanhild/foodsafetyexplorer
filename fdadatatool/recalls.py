@@ -8,35 +8,10 @@ import os
 from datetime import datetime as dt
 
 import requests
+from tqdm import tqdm
 
 from .data_factory import factory
 from .mappings import Recall
-
-FIELDNAMES = ['country',
-              'city',
-              'address_1',
-              'reason_for_recall',
-              'address_2',
-              'product_quantity',
-              'code_info',
-              'center_classification_date',
-              'distribution_pattern',
-              'state',
-              'product_description',
-              'report_date',
-              'classification',
-              'openfda',
-              'recalling_firm',
-              'recall_number',
-              'initial_firm_notification',
-              'product_type',
-              'event_id',
-              'termination_date',
-              'more_code_info',
-              'recall_initiation_date',
-              'postal_code',
-              'voluntary_mandated',
-              'status']
 
 
 class RecallBuilder:
@@ -66,10 +41,12 @@ class RecallBuilder:
             params = {'skip': self._skip, 'limit': self._limit}
             re = requests.get(self._base, params)
             responses = re.json()
-            for response in responses['results']:
+            message = f'Downloading {self._skip} of {record_limit}'
+            for response in tqdm(iterable=responses['results'],
+                                 leave=True,
+                                 desc=message):
                 recall = Recall(response)
                 self.data.append(recall)
-                print(f'Object {self._skip}')
                 self._skip += 1
 
     def to_csv(self, filename=None):
@@ -82,7 +59,9 @@ class RecallBuilder:
                            quotechar='"',
                            quoting=csv.QUOTE_MINIMAL)
             w.writerow(self.data[0].__table__.columns)
-            for row in self.data:
+            for row in tqdm(iterable=self.data,
+                            desc='Writing to CSV file',
+                            leave=True):
                 w.writerow(list(row))
 
     def to_db(self, db_session):
