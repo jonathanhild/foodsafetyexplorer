@@ -3,8 +3,8 @@
 # This software is released under the MIT License.
 # https://opensource.org/licenses/MIT
 
-from sqlalchemy.ext.declarative import declarative_base
 import sqlalchemy as db
+from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
@@ -23,6 +23,18 @@ class Citation(Base):
     long_description = db.Column(db.String)
     firm_profile = db.Column(db.String)
 
+    def __iter__(self):
+        return iter([self.id,
+                     self.inspection_id,
+                     self.fei_number,
+                     self.legal_name,
+                     self.inspection_end_date,
+                     self.program_area,
+                     self.act_cfr_number,
+                     self.short_description,
+                     self.long_description,
+                     self.firm_profile])
+
 
 class ComplianceAction(Base):
     __tablename__ = 'compliance_action'
@@ -38,6 +50,18 @@ class ComplianceAction(Base):
     case_id = db.Column(db.Integer)
     firm_profile = db.Column(db.String)
 
+    def __iter__(self):
+        return iter([self.id,
+                     self.fei_number,
+                     self.firm_name,
+                     self.firm_state,
+                     self.country_area,
+                     self.product_type,
+                     self.action_taken_date,
+                     self.action_type,
+                     self.case_id,
+                     self.firm_profile])
+
 
 class FirmProfile(Base):
     __tablename__ = 'firm_profile'
@@ -48,6 +72,14 @@ class FirmProfile(Base):
     firm_address1 = db.Column(db.String)
     firm_address2 = db.Column(db.String)
     firm_address3 = db.Column(db.String)
+
+    def __iter__(self):
+        return iter([self.id,
+                     self.fei_number,
+                     self.firm_name,
+                     self.firm_address1,
+                     self.firm_address2,
+                     self.firm_address3])
 
 
 class ImportRefusal(Base):
@@ -66,6 +98,20 @@ class ImportRefusal(Base):
     refusal_charges = db.Column(db.String)
     firm_profile = db.Column(db.String)
 
+    def __iter__(self):
+        return iter([self.id,
+                     self.fei_number,
+                     self.firm_legal_name,
+                     self.firm_address,
+                     self.product_code_and_description,
+                     self.refused_date,
+                     self.import_division,
+                     self.shipment_id,
+                     self.fda_sample_analysis,
+                     self.private_lab_analysis,
+                     self.refusal_charges,
+                     self.firm_profile])
+
 
 class ImportSummary(Base):
     __tablename__ = 'import_summary'
@@ -77,6 +123,15 @@ class ImportSummary(Base):
     refused_lines = db.Column(db.Integer)
     examined_lines = db.Column(db.Integer)
     sampled_lines = db.Column(db.Integer)
+
+    def __iter__(self):
+        return iter([self.id,
+                     self.fiscal_year,
+                     self.product_category,
+                     self.total_lines,
+                     self.refused_lines,
+                     self.examined_lines,
+                     self.sampled_lines])
 
 
 class Inspection(Base):
@@ -97,6 +152,23 @@ class Inspection(Base):
     project_area = db.Column(db.String)
     product_type = db.Column(db.String)
     firm_profile = db.Column(db.String)
+
+    def __iter__(self):
+        return iter([self.id,
+                     self.fei_number,
+                     self.legal_name,
+                     self.city,
+                     self.state,
+                     self.zip_code,
+                     self.country_area,
+                     self.fiscal_year,
+                     self.inspection_id,
+                     self.posted_citations,
+                     self.inspection_end_date,
+                     self.classification,
+                     self.project_area,
+                     self.product_type,
+                     self.firm_profile])
 
 
 class Recall(Base):
