@@ -12,6 +12,11 @@ Base = declarative_base()
 class Citation(Base):
     __tablename__ = 'citation'
 
+    def __init__(self, data):
+
+        for key, val in data.items():
+            setattr(self, key, val)
+
     id = db.Column(db.Integer, primary_key=True)
     inspection_id = db.Column(db.Integer)
     fei_number = db.Column(db.Integer)
