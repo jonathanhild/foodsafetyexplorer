@@ -16,7 +16,7 @@ class Citation(Base):
     inspection_id = db.Column(db.Integer)
     fei_number = db.Column(db.Integer)
     legal_name = db.Column(db.String)
-    inspection_end_date = db.Column(db.DateTime)
+    inspection_end_date = db.Column(db.String)
     program_area = db.Column(db.String)
     act_cfr_number = db.Column(db.String)
     short_description = db.Column(db.String)
@@ -45,7 +45,7 @@ class ComplianceAction(Base):
     firm_state = db.Column(db.String)
     country_area = db.Column(db.String)
     product_type = db.Column(db.String)
-    action_taken_date = db.Column(db.DateTime)
+    action_taken_date = db.Column(db.String)
     action_type = db.Column(db.String)
     case_id = db.Column(db.Integer)
     firm_profile = db.Column(db.String)
@@ -90,7 +90,7 @@ class ImportRefusal(Base):
     firm_legal_name = db.Column(db.String)
     firm_address = db.Column(db.String)
     product_code_and_description = db.Column(db.String)
-    refused_date = db.Column(db.DateTime)
+    refused_date = db.Column(db.String)
     import_division = db.Column(db.String)
     shipment_id = db.Column(db.String)
     fda_sample_analysis = db.Column(db.String)
@@ -147,7 +147,7 @@ class Inspection(Base):
     fiscal_year = db.Column(db.Integer)
     inspection_id = db.Column(db.Integer)
     posted_citations = db.Column(db.String)
-    inspection_end_date = db.Column(db.DateTime)
+    inspection_end_date = db.Column(db.String)
     classification = db.Column(db.String)
     project_area = db.Column(db.String)
     product_type = db.Column(db.String)
@@ -181,15 +181,15 @@ class Recall(Base):
 
     id = db.Column(db.Integer, primary_key=True)
     recall_number = db.Column(db.String)
-    report_date = db.Column(db.DateTime)
-    recall_initiation_date = db.Column(db.DateTime)
-    center_classification_date = db.Column(db.DateTime)
-    termination_date = db.Column(db.DateTime)
+    report_date = db.Column(db.String)
+    recall_initiation_date = db.Column(db.String)
+    center_classification_date = db.Column(db.String)
+    termination_date = db.Column(db.String)
     classification = db.Column(db.String)
     voluntary_mandated = db.Column(db.String)
     initial_firm_notification = db.Column(db.String)
     status = db.Column(db.String)
-    openfda = db.Column(db.String)
+    # openfda = db.Column(db.String)
     event_id = db.Column(db.Integer)
     recalling_firm = db.Column(db.String)
     address_1 = db.Column(db.String)
@@ -217,7 +217,7 @@ class Recall(Base):
                      self.voluntary_mandated,
                      self.initial_firm_notification,
                      self.status,
-                     self.openfda,
+                     #  self.openfda,
                      self.event_id,
                      self.recalling_firm,
                      self.address_1,

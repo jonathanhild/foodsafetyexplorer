@@ -64,8 +64,11 @@ class RecallBuilder:
                             leave=True):
                 w.writerow(list(row))
 
-    def to_db(self, db_session):
-        pass
+    def to_db(self, session):
+        for d in self.data:
+            session.add(d)
+        print('Inserting recall records into database.')
+        session.commit()
 
 
 class IRecallBuilder:
