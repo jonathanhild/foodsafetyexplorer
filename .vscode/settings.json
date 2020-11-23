@@ -1,0 +1,13 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "fdadata",
+            "database": "${workspaceFolder:fdadashboard}/data/fdadata.sqlite"
+        }
+    ],
+    "python.analysis.extraPaths": [
+        "./fdadatatool"
+    ]
+}
