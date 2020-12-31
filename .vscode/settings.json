@@ -9,5 +9,6 @@
     ],
     "python.analysis.extraPaths": [
         "./fdadatatool"
-    ]
+    ],
+    "python.pythonPath": "env/bin/python"
 }
