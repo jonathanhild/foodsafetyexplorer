@@ -10,12 +10,17 @@ Base = declarative_base()
 
 
 class Citation(Base):
+    """
+    SQLAlchemy declarative model for Citations.
+
+    Args:
+        Base (Base Object): SQLAlchemy declarative base.
+
+    Returns:
+        Model Object: SQLAlchemy declarative model.
+    """
+
     __tablename__ = 'citation'
-
-    def __init__(self, data):
-
-        for key, val in data.items():
-            setattr(self, key, val)
 
     id = db.Column(db.Integer, primary_key=True)
     inspection_id = db.Column(db.Integer)
@@ -27,6 +32,11 @@ class Citation(Base):
     short_description = db.Column(db.String)
     long_description = db.Column(db.String)
     firm_profile = db.Column(db.String)
+
+    def __init__(self, data=None):
+        if data:
+            for key, val in data.items():
+                setattr(self, key, val)
 
     def __iter__(self):
         return iter([self.id,
@@ -42,6 +52,15 @@ class Citation(Base):
 
 
 class ComplianceAction(Base):
+    """
+    SQLAlchemy declarative model for Compliance Actions.
+
+    Args:
+        Base (Base Object): SQLAlchemy declarative base.
+
+    Returns:
+        Model Object: SQLAlchemy declarative model.
+    """
     __tablename__ = 'compliance_action'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -54,6 +73,11 @@ class ComplianceAction(Base):
     action_type = db.Column(db.String)
     case_id = db.Column(db.Integer)
     firm_profile = db.Column(db.String)
+
+    def __init__(self, data=None):
+        if data:
+            for key, val in data.items():
+                setattr(self, key, val)
 
     def __iter__(self):
         return iter([self.id,
@@ -69,6 +93,16 @@ class ComplianceAction(Base):
 
 
 class FirmProfile(Base):
+    """
+    SQLAlchemy declarative model for Firm Profiles.
+
+    Args:
+        Base (Base Object): SQLAlchemy declarative base.
+
+    Returns:
+        Model Object: SQLAlchemy declarative model.
+    """
+
     __tablename__ = 'firm_profile'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -77,6 +111,11 @@ class FirmProfile(Base):
     firm_address1 = db.Column(db.String)
     firm_address2 = db.Column(db.String)
     firm_address3 = db.Column(db.String)
+
+    def __init__(self, data):
+        if data:
+            for key, val in data.items():
+                setattr(self, key, val)
 
     def __iter__(self):
         return iter([self.id,
@@ -88,6 +127,16 @@ class FirmProfile(Base):
 
 
 class ImportRefusal(Base):
+    """
+    SQLAlchemy declarative model for Import Refusals.
+
+    Args:
+        Base (Base Object): SQLAlchemy declarative base.
+
+    Returns:
+        Model Object: SQLAlchemy declarative model.
+    """
+
     __tablename__ = 'import_refusal'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -102,6 +151,11 @@ class ImportRefusal(Base):
     private_lab_analysis = db.Column(db.String)
     refusal_charges = db.Column(db.String)
     firm_profile = db.Column(db.String)
+
+    def __init__(self, data):
+        if data:
+            for key, val in data.items():
+                setattr(self, key, val)
 
     def __iter__(self):
         return iter([self.id,
@@ -119,6 +173,16 @@ class ImportRefusal(Base):
 
 
 class ImportSummary(Base):
+    """
+    SQLAlchemy declarative model for Import Summarys.
+
+    Args:
+        Base (Base Object): SQLAlchemy declarative base.
+
+    Returns:
+        Model Object: SQLAlchemy declarative model.
+    """
+
     __tablename__ = 'import_summary'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -128,6 +192,11 @@ class ImportSummary(Base):
     refused_lines = db.Column(db.Integer)
     examined_lines = db.Column(db.Integer)
     sampled_lines = db.Column(db.Integer)
+
+    def __init__(self, data):
+        if data:
+            for key, val in data.items():
+                setattr(self, key, val)
 
     def __iter__(self):
         return iter([self.id,
@@ -140,6 +209,16 @@ class ImportSummary(Base):
 
 
 class Inspection(Base):
+    """
+    SQLAlchemy declarative model for Inspections.
+
+    Args:
+        Base (Base Object): SQLAlchemy declarative base.
+
+    Returns:
+        Model Object: SQLAlchemy declarative model.
+    """
+
     __tablename__ = 'inspection'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -157,6 +236,11 @@ class Inspection(Base):
     project_area = db.Column(db.String)
     product_type = db.Column(db.String)
     firm_profile = db.Column(db.String)
+
+    def __init__(self, data):
+        if data:
+            for key, val in data.items():
+                setattr(self, key, val)
 
     def __iter__(self):
         return iter([self.id,
@@ -177,12 +261,23 @@ class Inspection(Base):
 
 
 class Recall(Base):
+    """
+    SQLAlchemy declarative model for Recalls.
+
+    Args:
+        Base (Base Object): SQLAlchemy declarative base.
+
+    Returns:
+        Model Object: SQLAlchemy declarative model.
+    """
+
     __tablename__ = 'recall'
 
     def __init__(self, data):
 
-        for key, val in data.items():
-            setattr(self, key, val)
+        if data:
+            for key, val in data.items():
+                setattr(self, key, val)
 
     id = db.Column(db.Integer, primary_key=True)
     recall_number = db.Column(db.String)
