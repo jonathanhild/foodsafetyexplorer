@@ -34,7 +34,7 @@ class CitationBuilder:
     def to_csv(self, filename=None):
         if filename is None:
             filename = 'citations.csv'
-        filepath = os.path.join('.', 'data', filename)
+        filepath = os.path.join('.', 'data', 'kaggle_data', filename)
         with open(filepath, 'w') as f:
             w = csv.writer(f,
                            delimiter=',',
@@ -42,7 +42,7 @@ class CitationBuilder:
                            quoting=csv.QUOTE_MINIMAL)
             w.writerow(self.data[0].__table__.columns)
             for row in tqdm(iterable=self.data,
-                            desc='Writing citations to CSV file',
+                            desc='Writing citation records to CSV file',
                             leave=True):
                 w.writerow(list(row))
 

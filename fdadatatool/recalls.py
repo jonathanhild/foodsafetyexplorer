@@ -16,7 +16,7 @@ from .mappings import Recall
 
 class RecallBuilder:
     def __init__(self):
-        self._base = 'https://api.fda.gov/food/enforcement.json'
+        self._url = 'https://api.fda.gov/food/enforcement.json'
         self._skip = 0
         self._limit = 1000
         self._total = 0
@@ -39,12 +39,11 @@ class RecallBuilder:
             record_limit = self._total
         while self._skip < record_limit:
             params = {'skip': self._skip, 'limit': self._limit}
-            re = requests.get(self._base, params)
+            re = requests.get(self._url, params)
             responses = re.json()
             message = f'Downloading {self._skip} of {record_limit}'
             for response in tqdm(iterable=responses['results'],
-                                 leave=True,
-                                 desc=message):
+                                 leave=True, desc=message):
                 recall = Recall(response)
                 self.data.append(recall)
                 self._skip += 1
@@ -52,16 +51,13 @@ class RecallBuilder:
     def to_csv(self, filename=None):
         if filename is None:
             filename = 'recalls.csv'
-        filepath = os.path.join('.', 'data', filename)
+        filepath = os.path.join('.', 'data', 'kaggle_data', filename)
         with open(filepath, 'w') as f:
-            w = csv.writer(f,
-                           delimiter=',',
-                           quotechar='"',
+            w = csv.writer(f, delimiter=',', quotechar='"',
                            quoting=csv.QUOTE_MINIMAL)
             w.writerow(self.data[0].__table__.columns)
             for row in tqdm(iterable=self.data,
-                            desc='Writing recalls to CSV file',
-                            leave=True):
+                            desc='Writing recalls to CSV file', leave=True):
                 w.writerow(list(row))
 
     def to_db(self, session):
