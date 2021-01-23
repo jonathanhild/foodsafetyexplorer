@@ -11,10 +11,10 @@ import requests
 from tqdm import tqdm
 
 from .data_factory import factory
-from .mappings import Recall
+from .mappers import UsFdaRecall
 
 
-class RecallBuilder:
+class UsFdaRecallBuilder:
     def __init__(self):
         self._url = 'https://api.fda.gov/food/enforcement.json'
         self._skip = 0
@@ -44,13 +44,13 @@ class RecallBuilder:
             message = f'Downloading {self._skip} of {record_limit}'
             for response in tqdm(iterable=responses['results'],
                                  leave=True, desc=message):
-                recall = Recall(response)
+                recall = UsFdaRecall(response)
                 self.data.append(recall)
                 self._skip += 1
 
     def to_csv(self, filename=None):
         if filename is None:
-            filename = 'recalls.csv'
+            filename = 'usfda_recalls.csv'
         filepath = os.path.join('.', 'data', 'kaggle_data', filename)
         with open(filepath, 'w') as f:
             w = csv.writer(f, delimiter=',', quotechar='"',
@@ -69,14 +69,14 @@ class RecallBuilder:
     # TODO: create method to update metadata table
 
 
-class IRecallBuilder:
+class IUsFdaRecallBuilder:
     def __init__(self):
         self._instance = None
 
     def __call__(self, **kwargs):
         if not self._instance:
-            self._instance = RecallBuilder(**kwargs)
+            self._instance = UsFdaRecallBuilder(**kwargs)
         return self._instance
 
 
-factory.register_builder('RECALLS', IRecallBuilder())
+factory.register_builder('USFDA_RECALL', IUsFdaRecallBuilder())

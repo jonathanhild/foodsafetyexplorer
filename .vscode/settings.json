@@ -3,12 +3,12 @@
         {
             "previewLimit": 50,
             "driver": "SQLite",
-            "name": "fdadata",
-            "database": "${workspaceFolder:fdadashboard}/data/fdadata.sqlite"
+            "name": "recalls",
+            "database": "${workspaceFolder:fdadashboard}/data/recalls.sqlite"
         }
     ],
     "python.analysis.extraPaths": [
-        "./fdadatatool"
+        "./recalldatatool"
     ],
     "python.pythonPath": "env/bin/python"
 }
