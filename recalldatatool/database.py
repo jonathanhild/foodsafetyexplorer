@@ -30,21 +30,23 @@ def pgsql_get_vars():
     return username, password
 
 
-def pgsql_conn_str(username, password):
+def pgsql_conn(username, password):
     pgsql_url = f'postgresql+psycopg2://{username}:{password}@localhost:5432/recalls'
-    return pgsql_url
+    engine = db.create_engine(pgsql_url)
+    return engine
 
 
-def sqlite_conn_str(filepath=None):
+def sqlite_conn(filepath=None):
     if not os.path.exists('./data'):
         os.mkdir('./data')
     if not filepath:
         filepath = os.path.join('data', 'recalls.sqlite')
     sqlite_url = f'sqlite:///{filepath}'
-    return sqlite_url
+    engine = db.create_engine(sqlite_url)
+    return engine
 
 
-def create_session(engine_url, create_all=False):
+def create_session(engine, create_all=False):
     """
     Create a PostgreSQL database session.
 
@@ -54,8 +56,6 @@ def create_session(engine_url, create_all=False):
     Returns:
         Session: A SQLAlchemy session instance.
     """
-    engine = db.create_engine(engine_url)
-
     if create_all:
         Base.metadata.create_all(engine)
 
@@ -67,7 +67,7 @@ def create_session(engine_url, create_all=False):
 if __name__ == '__main__':
     pgsql_env_file()
     username, password = pgsql_get_vars()
-    pgsql_conn = pgsql_conn_str(username, password)
+    pgsql_conn = pgsql_conn(username, password)
     session = create_session(pgsql_conn, create_all=True)
-    sqlite_conn = sqlite_conn_str()
+    sqlite_conn = sqlite_conn()
     session = create_session(sqlite_conn, create_all=True)
