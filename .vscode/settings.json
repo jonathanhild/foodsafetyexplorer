@@ -4,7 +4,17 @@
             "previewLimit": 50,
             "driver": "SQLite",
             "name": "recalls",
-            "database": "${workspaceFolder:fdadashboard}/data/recalls.sqlite"
+            "database": "${workspaceFolder:recalls-dashboard}/data/recalls.sqlite"
+        },
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "name": "recalls",
+            "database": "recalls",
+            "username": "recalls"
         }
     ],
     "python.analysis.extraPaths": [
