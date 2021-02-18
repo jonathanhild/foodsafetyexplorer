@@ -12,7 +12,7 @@
             "console": "integratedTerminal"
         },
         {
-            "name": "Run recalls init pgsql",
+            "name": "Run: Initialize PostgreSQL",
             "type": "python",
             "request": "launch",
             "program": "recalls.py",
@@ -24,7 +24,7 @@
             ]
         },
         {
-            "name": "Run recalls init sqlite",
+            "name": "Run: Initialize SQLite",
             "type": "python",
             "request": "launch",
             "program": "recalls.py",
@@ -34,6 +34,74 @@
                 "-db",
                 "sqlite"
             ]
-        }
+        },
+        {
+            "name": "Run: Scrape US FDA",
+            "type": "python",
+            "request": "launch",
+            "program": "recalls.py",
+            "console": "integratedTerminal",
+            "args": [
+                "scrape",
+                "-s",
+                "usfda"
+            ]
+        },
+        {
+            "name": "Run: Scrape CFIA",
+            "type": "python",
+            "request": "launch",
+            "program": "recalls.py",
+            "console": "integratedTerminal",
+            "args": [
+                "scrape",
+                "-s",
+                "cfia"
+            ]
+        },
+        {
+            "name": "Run: Scrape UK FSA",
+            "type": "python",
+            "request": "launch",
+            "program": "recalls.py",
+            "console": "integratedTerminal",
+            "args": [
+                "scrape",
+                "-s",
+                "ukfsa"
+            ]
+        },
+        {
+            "name": "Run: Scrape EFSA",
+            "type": "python",
+            "request": "launch",
+            "program": "recalls.py",
+            "console": "integratedTerminal",
+            "args": [
+                "scrape",
+                "-s",
+                "efsa"
+            ]
+        },
+        {
+            "name": "Run: Models",
+            "type": "python",
+            "request": "launch",
+            "program": "recalls.py",
+            "console": "integratedTerminal",
+            "args": [
+                "model"
+            ]
+        },
+        {
+            "name": "Run: Start Dashboard",
+            "type": "python",
+            "request": "launch",
+            "program": "recalls.py",
+            "console": "integratedTerminal",
+            "args": [
+                "start"
+            ]
+        },
     ]
 }
