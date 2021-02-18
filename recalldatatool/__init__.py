@@ -4,4 +4,4 @@
 # https://opensource.org/licenses/MIT
 
 from .data_factory import factory
-from .database import db
+from .database import create_session
