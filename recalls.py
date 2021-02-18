@@ -4,27 +4,42 @@
 # https://opensource.org/licenses/MIT
 
 import click
+import tqdm
 
-from recalldatatool import db, factory
-
-db_session = db()
-
-usfda = factory.register_builder('USFDA_RECALL')
-cfia = factory.register_builder('CFIA_RECALL')
-ukfsa = factory.register_builder('UKFSA_RECALL')
-efsa = factory.register_builder('EFSA_RECALL')
+from recalldatatool import factory, create_session
 
 
-@click.command()
-@click.option('--initdb-sqlite', help='Initialize a new recalls SQLite database')
-@click.option('--initdb-pgsql', help='Initialize a new recalls PostgreSQL database')
-def create_db():
-    # Create a new SQLite database
+@click.group()
+def cli():
     pass
 
 
-@click.command('scrape')
-@click.option('--source', '-s')
+@cli.command(help='Initialize a PostgreSQL or SQLite database.')
+@click.option('--database', '-db', type=click.Choice(['pgsql', 'sqlite']))
+@click.option()
+def init(database):
+    if database == 'pgsql':
+        pass
+    if database == 'sqlite':
+        pass
+
+
+@cli.command(help='Retrieve data from recall event sources.')
+@cli.option('--all', '-a')
+@cli.option('--source', '-s', type=click.Choice(['usfda', 'cfia', 'ukfsa', 'efsa']))
 def scrape():
-    # Start a web scraping session to update
     pass
+
+
+@cli.command(help='Run machine learning models.')
+def model():
+    pass
+
+
+@cli.command(help='Start the recalls dashboard.')
+def start():
+    pass
+
+
+if __name__ == '__main__':
+    cli()
