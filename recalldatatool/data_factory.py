@@ -6,7 +6,7 @@
 
 class DataFactory:
 
-    def __init__(self) -> None:
+    def __init__(self):
         self._builders = {}
 
     def register_builder(self, key, builder):
