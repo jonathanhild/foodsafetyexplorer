@@ -88,6 +88,7 @@ class CFIARecall(Base):
                 setattr(self, key, val)
 
     id = db.Column(db.Integer, primary_key=True)
+    recallId = db.Column(db.String)
     start_date = db.Column(db.Date)
     date_published = db.Column(db.Date)
     subtype = db.Column(db.String)
@@ -210,7 +211,7 @@ class EFSARecall(Base):
     country_origin = db.Column(db.String)
     country_distribution = db.Column(db.String)
     country_concern = db.Column(db.String)
-    hazards = relationship('EFSAProductDetail')
+    hazards = relationship('EFSARecallHazard')
 
 
 class EFSARecallHazard(Base):
