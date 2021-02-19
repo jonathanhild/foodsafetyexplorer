@@ -12,7 +12,7 @@
             "console": "integratedTerminal"
         },
         {
-            "name": "Run: Initialize PostgreSQL",
+            "name": "Debug: Initialize PostgreSQL",
             "type": "python",
             "request": "launch",
             "program": "recalls.py",
@@ -24,7 +24,7 @@
             ]
         },
         {
-            "name": "Run: Initialize SQLite",
+            "name": "Debug: Initialize SQLite",
             "type": "python",
             "request": "launch",
             "program": "recalls.py",
@@ -36,19 +36,21 @@
             ]
         },
         {
-            "name": "Run: Scrape US FDA",
+            "name": "Debug: Scrape US FDA",
             "type": "python",
             "request": "launch",
             "program": "recalls.py",
             "console": "integratedTerminal",
             "args": [
                 "scrape",
+                "-db",
+                "sqlite",
                 "-s",
                 "usfda"
             ]
         },
         {
-            "name": "Run: Scrape CFIA",
+            "name": "Debug: Scrape CFIA",
             "type": "python",
             "request": "launch",
             "program": "recalls.py",
@@ -60,31 +62,35 @@
             ]
         },
         {
-            "name": "Run: Scrape UK FSA",
+            "name": "Debug: Scrape UK FSA",
             "type": "python",
             "request": "launch",
             "program": "recalls.py",
             "console": "integratedTerminal",
             "args": [
                 "scrape",
+                "-db",
+                "sqlite",
                 "-s",
                 "ukfsa"
             ]
         },
         {
-            "name": "Run: Scrape EFSA",
+            "name": "Debug: Scrape EFSA",
             "type": "python",
             "request": "launch",
             "program": "recalls.py",
             "console": "integratedTerminal",
             "args": [
                 "scrape",
+                "-db",
+                "sqlite",
                 "-s",
                 "efsa"
             ]
         },
         {
-            "name": "Run: Models",
+            "name": "Debug: Models",
             "type": "python",
             "request": "launch",
             "program": "recalls.py",
@@ -94,7 +100,7 @@
             ]
         },
         {
-            "name": "Run: Start Dashboard",
+            "name": "Debug: Start Dashboard",
             "type": "python",
             "request": "launch",
             "program": "recalls.py",
