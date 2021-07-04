@@ -9,10 +9,10 @@ import requests
 from tqdm import tqdm
 
 from .data_factory import factory
-from .mappings import USFDARecall
+from .mappers import USFDARecall
 
 
-class USFDARecallBuilder:
+class EFSARecallBuilder:
     def __init__(self):
         self._url = 'https://api.fda.gov/food/enforcement.json'
         self._skip = 0
@@ -23,16 +23,10 @@ class USFDARecallBuilder:
 
         self.get_metadata()
 
-    def get_metadata(self):
-        re = requests.get(self._url)
-        json = re.json()
-        json = json["meta"]
-        self._skip = json['results']['skip']
-        self._total = json['results']['total']
-        self._last_updated = dt.strptime(
-            json['last_updated'], "%Y-%m-%d")
+    def get_event_list(self):
+        pass
 
-    def get_events(self, record_limit=None):
+    def get_data(self, record_limit=None):
         if record_limit is None:
             record_limit = self._total
         while self._skip < record_limit:
@@ -53,14 +47,14 @@ class USFDARecallBuilder:
         session.commit()
 
 
-class IUSFDARecallBuilder:
+class IEFSARecallBuilder:
     def __init__(self):
         self._instance = None
 
     def __call__(self, **kwargs):
         if not self._instance:
-            self._instance = USFDARecallBuilder(**kwargs)
+            self._instance = EFSARecallBuilder(**kwargs)
         return self._instance
 
 
-factory.register_builder('USFDA_RECALL', IUSFDARecallBuilder())
+factory.register_builder('USFDA_RECALL', IEFSARecallBuilder())
