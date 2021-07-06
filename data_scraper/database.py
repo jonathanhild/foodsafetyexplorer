@@ -31,7 +31,7 @@ def _pgsql_get_vars():
 
 
 def _pgsql_conn(username, password):
-    pgsql_url = f'postgresql+psycopg2://{username}:{password}@localhost:5432/recalls'
+    pgsql_url = f'postgresql+psycopg2://{username}:{password}@localhost:5432/fooddata'
     engine = db.create_engine(pgsql_url)
     return engine
 
@@ -40,7 +40,7 @@ def _sqlite_conn(dbpath=None):
     if not os.path.exists('./data'):
         os.mkdir('./data')
     if not dbpath:
-        dbpath = os.path.join('data', 'recalls.sqlite')
+        dbpath = os.path.join('data', 'fooddata.sqlite')
     sqlite_url = f'sqlite:///{dbpath}'
     engine = db.create_engine(sqlite_url)
     return engine
@@ -51,7 +51,7 @@ def create_session(database='sqlite', path=None):
         _pgsql_env_file(pgsql_env_file=path)
         username, password = _pgsql_get_vars()
         engine = _pgsql_conn(username=username, password=password)
-    if database == 'sqlite':
+    else:
         engine = _sqlite_conn(dbpath=path)
 
     Base.metadata.create_all(engine)

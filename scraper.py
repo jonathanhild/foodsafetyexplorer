@@ -39,7 +39,7 @@ def init(database):
     return session
 
 
-@cli.command(help='Retrieve data from recall event sources.')
+@cli.command(help='Retrieve data from API sources.')
 @click.option('--source', '-s', type=source_options, multiple=True)
 @click.option('--database', '-db', type=db_options)
 @click.option('--filepath', '-f', type=str)
