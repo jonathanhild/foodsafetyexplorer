@@ -20,5 +20,5 @@
     "python.analysis.extraPaths": [
         "./recalldatatool"
     ],
-    "python.pythonPath": "env/bin/python"
+    "python.pythonPath": "env/bin/python3.9"
 }
