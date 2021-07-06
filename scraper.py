@@ -6,12 +6,14 @@
 import click
 import tqdm
 
-from recalldatatool import factory
-from recalldatatool import database as db
-from recalldatatool import usfda
+from data_scraper import factory
+from data_scraper import database as db
+from data_scraper import openfda
 
 db_options = click.Choice(['pgsql', 'sqlite'])
-source_options = click.Choice(['usfda', 'cfia', 'ukfsa', 'efsa'])
+source_options = click.Choice(
+    ['recalls', 'adverseevents', 'inspectionclassifications', 'inspectioncitations', 'importrefusals']
+)
 
 
 @click.group()
@@ -46,21 +48,11 @@ def scrape(source, database, filepath):
     # Create a new session to the chosen database.
     session = db.create_session(database=database, path=filepath)
 
-    if 'usfda' in source:
-        usfda = factory.create('USFDA_RECALL')
-        usfda.get_metadata()
-        usfda.get_events()
-        usfda.to_db(session)
-    if 'cfia' in source:
-        cfia = factory.create('CFIA_RECALL')
-        cfia.get_event_urls()
-        cfia.get_events()
-        cfia.get_product_details()
-        cfia.to_db(session)
-    if 'ukfsa' in source:
-        pass
-    if 'efsa' in source:
-        pass
+    if 'recalls' in source:
+        recall = factory.create('OPENFDA_RECALL')
+        recall.get_metadata()
+        recall.get_events()
+        recall.to_db(session)
 
 
 @cli.command(help='Run machine learning models.')
