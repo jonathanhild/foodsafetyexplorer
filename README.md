@@ -1,4 +1,4 @@
-# Recalls Dashboard
+# FoodSafetyExplorer
 
 Data for food safety hazard analysis
 
