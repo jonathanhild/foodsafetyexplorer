@@ -1,6 +1,6 @@
 # FoodSafetyExplorer
 
-Data for food safety hazard analysis
+Data dashboard for exploring food safety risks in the supply chain.
 
 ## Summary
 
@@ -16,25 +16,17 @@ Data analytics and machine learning techniques can provide a solution to assist 
 
 ## The Data
 
-![FDA Logo](./img/usfda.png)
+![FDA Logo](./img/fda.png)
+
+![openFDA Logo](./img/openfda.png)
 
 [openFDA Recall Enforcement Endpoint](https://open.fda.gov/apis/food/enforcement/)
 
-The FDA provides a convenient API endpoint of recall enforcement events.
+This endpoint includes food recall information from 2004-present.
 
-![CFIA Logo](./img/cfia.png)
+[openFDA Adverse Events Endpoint](https://open.fda.gov/apis/food/event/)
 
-[CFIA Recalls & Safety Alerts API](https://open.canada.ca/data/en/dataset/d38de914-c94c-429b-8ab1-8776c31643e3)
-
-![FSA Logo](./img/ukfsa.png)
-
-[FSA Food Alerts API](https://data.food.gov.uk/food-alerts/ui/reference)
-
-![EFSA Logo](./img/efsa.png)
-
-[EFSA RASFF Portal](https://webgate.ec.europa.eu/rasff-window/portal/)
-
-The RASFF portal does not provide a convenient API endpoint and I had to result to web scraping to collect using the Python BeautifulSoup library. Two stages were needed to collect this data. First, scraping URL links from the search results list. Then crawling the list of links and scraping data details.
+This endpoint includes adverse health event and product complaint reports.
 
 ## The Dashboard
 
